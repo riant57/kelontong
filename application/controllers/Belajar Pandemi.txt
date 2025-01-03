@@ -1,0 +1,46 @@
+Eloquent relasi 
+
+$order = Order::find(1);
+$order-> attach([1,3,4]);
+
+ - Menambahkan 3 buku sekaligus dengan id 1,3,4 ke dalam order dengan id 1.
+
+Membuat fungsi di model.	
+public function orders(){
+  return $this->belongsToMany("App\Order");
+} 
+
+// dapatkan buku dengan id 4
+$buku = Book::find(4);
+
+// cari order yang memiliki buku dengan id 4
+$orderan_yang_memuat_buku_ini = $buku->orders; 
+
+- panggil di controller, biasanya langung panggil di view.
+
+- Soft deletes
+
+public function books(){
+  return $this->belongsToMany('App\Book')->withPivot('quantity');;
+} 
+Pada definisi relationship di atas kita juga ingin mengambil field yang berada di tabel pivot yaitu field
+quantity, oleh karenanya kita juga menggunakan method withPivot('quantity'). Sehingga nanti di
+view kita bisa mendapatkan data quantity menggunakan kode seperti ini:
+@foreach($order->books as $book)
+  Quantity: {{$book->pivot->quantity}}
+@endforeach 
+
+- pivot quantity
+
+- abort(401, 'Anda belum login!'); atau untuk 404 dll.
+
+- Gate untuk user management.
+
+Catatan vue
+
+- Properti data bisa dimanipulasi isinya saat runtime (aplikasi berjalan), disamping itu properti data otomatis ini memiliki
+  sifat reactive sehingga perubahan nilai pada variabel data akan memicu render ulang pada view. 
+  
+- belajar vue sampai halaman 24.
+- belajar OOP sampai override overloading
+
